@@ -1,0 +1,26 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "controllerrevision.go",
+        "daemonset.go",
+        "daemonset_expansion.go",
+        "deployment.go",
+        "expansion_generated.go",
+        "replicaset.go",
+        "replicaset_expansion.go",
+        "statefulset.go",
+        "statefulset_expansion.go",
+    ],
+    importpath = "k8s.io/client-go/listers/apps/v1",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//tools/cache:go_default_library",
+        "@io_k8s_api//apps/v1:go_default_library",
+        "@io_k8s_api//core/v1:go_default_library",
+        "@io_k8s_apimachinery//pkg/api/errors:go_default_library",
+        "@io_k8s_apimachinery//pkg/apis/meta/v1:go_default_library",
+        "@io_k8s_apimachinery//pkg/labels:go_default_library",
+    ],
+)

@@ -1,0 +1,34 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "interface.go",
+        "lister.go",
+        "shim.go",
+    ],
+    importpath = "k8s.io/client-go/metadata/metadatalister",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//tools/cache:go_default_library",
+        "@io_k8s_apimachinery//pkg/api/errors:go_default_library",
+        "@io_k8s_apimachinery//pkg/apis/meta/v1:go_default_library",
+        "@io_k8s_apimachinery//pkg/labels:go_default_library",
+        "@io_k8s_apimachinery//pkg/runtime:go_default_library",
+        "@io_k8s_apimachinery//pkg/runtime/schema:go_default_library",
+    ],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = ["lister_test.go"],
+    embed = [":go_default_library"],
+    deps = [
+        "//tools/cache:go_default_library",
+        "@io_k8s_apimachinery//pkg/apis/meta/v1:go_default_library",
+        "@io_k8s_apimachinery//pkg/labels:go_default_library",
+        "@io_k8s_apimachinery//pkg/runtime:go_default_library",
+        "@io_k8s_apimachinery//pkg/runtime/schema:go_default_library",
+        "@io_k8s_apimachinery//pkg/util/diff:go_default_library",
+    ],
+)

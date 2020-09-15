@@ -1,0 +1,21 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "conversion.go",
+        "doc.go",
+        "register.go",
+        "types.go",
+        "zz_generated.conversion.go",
+        "zz_generated.deepcopy.go",
+    ],
+    importpath = "k8s.io/client-go/tools/clientcmd/api/v1",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//tools/clientcmd/api:go_default_library",
+        "@io_k8s_apimachinery//pkg/conversion:go_default_library",
+        "@io_k8s_apimachinery//pkg/runtime:go_default_library",
+        "@io_k8s_apimachinery//pkg/runtime/schema:go_default_library",
+    ],
+)

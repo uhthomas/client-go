@@ -1,0 +1,23 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "eviction.go",
+        "expansion_generated.go",
+        "poddisruptionbudget.go",
+        "poddisruptionbudget_expansion.go",
+        "podsecuritypolicy.go",
+    ],
+    importpath = "k8s.io/client-go/listers/policy/v1beta1",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//tools/cache:go_default_library",
+        "@io_k8s_api//core/v1:go_default_library",
+        "@io_k8s_api//policy/v1beta1:go_default_library",
+        "@io_k8s_apimachinery//pkg/api/errors:go_default_library",
+        "@io_k8s_apimachinery//pkg/apis/meta/v1:go_default_library",
+        "@io_k8s_apimachinery//pkg/labels:go_default_library",
+        "@io_k8s_klog//:go_default_library",
+    ],
+)

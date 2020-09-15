@@ -1,0 +1,44 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "healthzadaptor.go",
+        "leaderelection.go",
+        "metrics.go",
+    ],
+    importpath = "k8s.io/client-go/tools/leaderelection",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//tools/leaderelection/resourcelock:go_default_library",
+        "@io_k8s_apimachinery//pkg/api/errors:go_default_library",
+        "@io_k8s_apimachinery//pkg/apis/meta/v1:go_default_library",
+        "@io_k8s_apimachinery//pkg/util/clock:go_default_library",
+        "@io_k8s_apimachinery//pkg/util/runtime:go_default_library",
+        "@io_k8s_apimachinery//pkg/util/wait:go_default_library",
+        "@io_k8s_klog//:go_default_library",
+    ],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = [
+        "healthzadaptor_test.go",
+        "leaderelection_test.go",
+    ],
+    embed = [":go_default_library"],
+    deps = [
+        "//kubernetes/fake:go_default_library",
+        "//testing:go_default_library",
+        "//tools/leaderelection/resourcelock:go_default_library",
+        "//tools/record:go_default_library",
+        "@io_k8s_api//coordination/v1:go_default_library",
+        "@io_k8s_api//core/v1:go_default_library",
+        "@io_k8s_apimachinery//pkg/api/equality:go_default_library",
+        "@io_k8s_apimachinery//pkg/api/errors:go_default_library",
+        "@io_k8s_apimachinery//pkg/apis/meta/v1:go_default_library",
+        "@io_k8s_apimachinery//pkg/runtime:go_default_library",
+        "@io_k8s_apimachinery//pkg/util/clock:go_default_library",
+        "@io_k8s_apimachinery//pkg/util/diff:go_default_library",
+    ],
+)

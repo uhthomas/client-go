@@ -1,0 +1,12 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["legacy.go"],
+    importpath = "k8s.io/client-go/discovery/cached",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//discovery:go_default_library",
+        "//discovery/cached/memory:go_default_library",
+    ],
+)

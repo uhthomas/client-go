@@ -1,0 +1,13 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["interface.go"],
+    importpath = "k8s.io/client-go/informers/discovery",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//informers/discovery/v1alpha1:go_default_library",
+        "//informers/discovery/v1beta1:go_default_library",
+        "//informers/internalinterfaces:go_default_library",
+    ],
+)

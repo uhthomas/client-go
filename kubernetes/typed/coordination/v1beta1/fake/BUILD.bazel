@@ -1,0 +1,23 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "doc.go",
+        "fake_coordination_client.go",
+        "fake_lease.go",
+    ],
+    importpath = "k8s.io/client-go/kubernetes/typed/coordination/v1beta1/fake",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//kubernetes/typed/coordination/v1beta1:go_default_library",
+        "//rest:go_default_library",
+        "//testing:go_default_library",
+        "@io_k8s_api//coordination/v1beta1:go_default_library",
+        "@io_k8s_apimachinery//pkg/apis/meta/v1:go_default_library",
+        "@io_k8s_apimachinery//pkg/labels:go_default_library",
+        "@io_k8s_apimachinery//pkg/runtime/schema:go_default_library",
+        "@io_k8s_apimachinery//pkg/types:go_default_library",
+        "@io_k8s_apimachinery//pkg/watch:go_default_library",
+    ],
+)

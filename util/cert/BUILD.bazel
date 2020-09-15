@@ -1,0 +1,23 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "cert.go",
+        "csr.go",
+        "io.go",
+        "pem.go",
+        "server_inspection.go",
+    ],
+    importpath = "k8s.io/client-go/util/cert",
+    visibility = ["//visibility:public"],
+    deps = ["//util/keyutil:go_default_library"],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = ["csr_test.go"],
+    data = glob(["testdata/**"]),
+    embed = [":go_default_library"],
+    deps = ["//util/keyutil:go_default_library"],
+)

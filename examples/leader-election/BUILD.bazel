@@ -1,0 +1,24 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["main.go"],
+    importpath = "k8s.io/client-go/examples/leader-election",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//kubernetes:go_default_library",
+        "//rest:go_default_library",
+        "//tools/clientcmd:go_default_library",
+        "//tools/leaderelection:go_default_library",
+        "//tools/leaderelection/resourcelock:go_default_library",
+        "@com_github_google_uuid//:go_default_library",
+        "@io_k8s_apimachinery//pkg/apis/meta/v1:go_default_library",
+        "@io_k8s_klog//:go_default_library",
+    ],
+)
+
+go_binary(
+    name = "leader-election",
+    embed = [":go_default_library"],
+    visibility = ["//visibility:public"],
+)

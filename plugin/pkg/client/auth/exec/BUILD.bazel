@@ -1,0 +1,45 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "exec.go",
+        "metrics.go",
+    ],
+    importpath = "k8s.io/client-go/plugin/pkg/client/auth/exec",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//pkg/apis/clientauthentication:go_default_library",
+        "//pkg/apis/clientauthentication/v1alpha1:go_default_library",
+        "//pkg/apis/clientauthentication/v1beta1:go_default_library",
+        "//tools/clientcmd/api:go_default_library",
+        "//tools/metrics:go_default_library",
+        "//transport:go_default_library",
+        "//util/connrotation:go_default_library",
+        "@com_github_davecgh_go_spew//spew:go_default_library",
+        "@io_k8s_apimachinery//pkg/apis/meta/v1:go_default_library",
+        "@io_k8s_apimachinery//pkg/runtime:go_default_library",
+        "@io_k8s_apimachinery//pkg/runtime/schema:go_default_library",
+        "@io_k8s_apimachinery//pkg/runtime/serializer:go_default_library",
+        "@io_k8s_apimachinery//pkg/util/runtime:go_default_library",
+        "@io_k8s_klog//:go_default_library",
+        "@org_golang_x_crypto//ssh/terminal:go_default_library",
+    ],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = [
+        "exec_test.go",
+        "metrics_test.go",
+    ],
+    data = glob(["testdata/**"]),
+    embed = [":go_default_library"],
+    deps = [
+        "//pkg/apis/clientauthentication:go_default_library",
+        "//tools/clientcmd/api:go_default_library",
+        "//transport:go_default_library",
+        "@io_k8s_apimachinery//pkg/apis/meta/v1:go_default_library",
+        "@io_k8s_apimachinery//pkg/runtime:go_default_library",
+    ],
+)

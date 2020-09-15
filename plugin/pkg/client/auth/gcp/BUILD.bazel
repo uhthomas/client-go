@@ -1,0 +1,24 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["gcp.go"],
+    importpath = "k8s.io/client-go/plugin/pkg/client/auth/gcp",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//rest:go_default_library",
+        "//util/jsonpath:go_default_library",
+        "@io_k8s_apimachinery//pkg/util/net:go_default_library",
+        "@io_k8s_apimachinery//pkg/util/yaml:go_default_library",
+        "@io_k8s_klog//:go_default_library",
+        "@org_golang_x_oauth2//:go_default_library",
+        "@org_golang_x_oauth2//google:go_default_library",
+    ],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = ["gcp_test.go"],
+    embed = [":go_default_library"],
+    deps = ["@org_golang_x_oauth2//:go_default_library"],
+)

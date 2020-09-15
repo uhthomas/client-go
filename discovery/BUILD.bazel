@@ -1,0 +1,49 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "discovery_client.go",
+        "doc.go",
+        "helper.go",
+    ],
+    importpath = "k8s.io/client-go/discovery",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//kubernetes/scheme:go_default_library",
+        "//rest:go_default_library",
+        "@com_github_golang_protobuf//proto:go_default_library",
+        "@com_github_googleapis_gnostic//OpenAPIv2:go_default_library",
+        "@io_k8s_apimachinery//pkg/api/errors:go_default_library",
+        "@io_k8s_apimachinery//pkg/apis/meta/v1:go_default_library",
+        "@io_k8s_apimachinery//pkg/runtime:go_default_library",
+        "@io_k8s_apimachinery//pkg/runtime/schema:go_default_library",
+        "@io_k8s_apimachinery//pkg/runtime/serializer:go_default_library",
+        "@io_k8s_apimachinery//pkg/util/runtime:go_default_library",
+        "@io_k8s_apimachinery//pkg/util/sets:go_default_library",
+        "@io_k8s_apimachinery//pkg/version:go_default_library",
+    ],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = [
+        "discovery_client_test.go",
+        "helper_blackbox_test.go",
+    ],
+    embed = [":go_default_library"],
+    deps = [
+        "//rest:go_default_library",
+        "//rest/fake:go_default_library",
+        "@com_github_gogo_protobuf//proto:go_default_library",
+        "@com_github_googleapis_gnostic//OpenAPIv2:go_default_library",
+        "@com_github_stretchr_testify//assert:go_default_library",
+        "@io_k8s_api//core/v1:go_default_library",
+        "@io_k8s_apimachinery//pkg/apis/meta/v1:go_default_library",
+        "@io_k8s_apimachinery//pkg/runtime:go_default_library",
+        "@io_k8s_apimachinery//pkg/runtime/schema:go_default_library",
+        "@io_k8s_apimachinery//pkg/util/diff:go_default_library",
+        "@io_k8s_apimachinery//pkg/util/sets:go_default_library",
+        "@io_k8s_apimachinery//pkg/version:go_default_library",
+    ],
+)

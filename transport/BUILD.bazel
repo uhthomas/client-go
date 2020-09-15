@@ -1,0 +1,36 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "cache.go",
+        "cert_rotation.go",
+        "config.go",
+        "round_trippers.go",
+        "token_source.go",
+        "transport.go",
+    ],
+    importpath = "k8s.io/client-go/transport",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//util/connrotation:go_default_library",
+        "//util/workqueue:go_default_library",
+        "@io_k8s_apimachinery//pkg/util/net:go_default_library",
+        "@io_k8s_apimachinery//pkg/util/runtime:go_default_library",
+        "@io_k8s_apimachinery//pkg/util/wait:go_default_library",
+        "@io_k8s_klog//:go_default_library",
+        "@org_golang_x_oauth2//:go_default_library",
+    ],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = [
+        "cache_test.go",
+        "round_trippers_test.go",
+        "token_source_test.go",
+        "transport_test.go",
+    ],
+    embed = [":go_default_library"],
+    deps = ["@org_golang_x_oauth2//:go_default_library"],
+)

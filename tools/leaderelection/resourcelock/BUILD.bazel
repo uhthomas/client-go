@@ -1,0 +1,23 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "configmaplock.go",
+        "endpointslock.go",
+        "interface.go",
+        "leaselock.go",
+        "multilock.go",
+    ],
+    importpath = "k8s.io/client-go/tools/leaderelection/resourcelock",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//kubernetes/typed/coordination/v1:go_default_library",
+        "//kubernetes/typed/core/v1:go_default_library",
+        "@io_k8s_api//coordination/v1:go_default_library",
+        "@io_k8s_api//core/v1:go_default_library",
+        "@io_k8s_apimachinery//pkg/api/errors:go_default_library",
+        "@io_k8s_apimachinery//pkg/apis/meta/v1:go_default_library",
+        "@io_k8s_apimachinery//pkg/runtime:go_default_library",
+    ],
+)
