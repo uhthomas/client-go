@@ -45,3 +45,7 @@ http_archive(
 load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
 
 gazelle_dependencies()
+
+load ("//:repositories.bzl", "repositories")
+
+repositories()
